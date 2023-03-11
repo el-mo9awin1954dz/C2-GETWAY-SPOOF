@@ -79,9 +79,10 @@ Function C2-AUTO-GETAY-SPOOF{
   
   Write-Host "SPOOF ME $TELEIP || $FOLD >>> $FNEW || LOG ON $FLOG HACKER ---------------- EXPLOIT ?.> "
   
-  
+  Log-Message " [*] END JOB ------------------- ELMO9AWIM "
+
 }
 
   
   
-
+# C2-AUTO-GETAY-SPOOF -BId "TELEGRAM ID" -BToken "TELEGRAM TOKEN" -FOLD "OLD ROUTE" -FNEW "NEW ROUTE" -FLOG "LOG SAVE .log" 
