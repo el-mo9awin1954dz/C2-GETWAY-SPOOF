@@ -1,3 +1,18 @@
+  function Log-Message
+{
+    [CmdletBinding()]
+    Param
+    (
+        [Parameter(Mandatory=$true, Position=0)]
+        [string]$LogMessage
+    )
+
+    Write-Output (" [DZHACKLAB] - ELMO9AWIM {0} - {1}" -f (Get-Date), $LogMessage)
+}
+
+Log-Message " [*] START JOB ------------------- ELMO9AWIM "
+
+  
   #variables
   $ipaddress='1.2.3.4'
   $index = get-netipaddress | where-object {$_.IPAddress -eq $ipaddress} | select -ExpandProperty InterfaceIndex
